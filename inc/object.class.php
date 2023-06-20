@@ -1241,9 +1241,11 @@ class PluginGenericobjectObject extends CommonDBTM {
                $name      = Dropdown::getDropdownName("glpi_plugin_genericobject_typefamilies", $family_id, 0, false);
                $str_name  = strtolower($name);
                $menu[$str_name]['title'] = Dropdown::getDropdownName("glpi_plugin_genericobject_typefamilies", $family_id);
+               $menu[$str_name]['icon'] = ($type['comment'] == '') ? $type['itemType']::getIcon() : $type['comment'];
                $menu[$str_name]['page']  = '/'.Plugin::getWebDir('genericobject', false).'/front/familylist.php?id='.$family_id;
                $menu[$str_name]['options'][strtolower($itemtype)] = [
                   'title' => $type['itemtype']::getMenuName(),
+                  'icon'  => ($type['comment'] == '') ? $type['itemType']::getIcon() : $type['comment'],
                   'page'  => $itemtype::getSearchUrl(false),
                   'links' => $links
                ];
