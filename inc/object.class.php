@@ -1294,30 +1294,30 @@ class PluginGenericobjectObject extends CommonDBTM
                     }
                 }
 
-                if (
-                    $type['plugin_genericobject_typefamilies_id'] > 0
-                    && (!isset($_GET['itemtype'])
-                    || !preg_match("/itemtype=" . $_GET['itemtype'] . "/", $_GET['itemtype']))
-                ) {
-                    $family_id = $type['plugin_genericobject_typefamilies_id'];
-                    $name      = Dropdown::getDropdownName("glpi_plugin_genericobject_typefamilies", $family_id, 0, false);
-                    $str_name  = strtolower($name);
-                    $menu[$str_name]['title'] = Dropdown::getDropdownName("glpi_plugin_genericobject_typefamilies", $family_id);
-                    $menu[$str_name]['page']  = '/' . Plugin::getWebDir('genericobject', false) . '/front/familylist.php?id=' . $family_id;
-                    $menu[$str_name]['options'][strtolower($itemtype)] = [
-                        'title' => $type['itemtype']::getMenuName(),
-                        'page'  => $itemtype::getSearchUrl(false),
-                        'links' => $links,
-                        'lists_itemtype' => $itemtype,
-                    ];
-                } else {
-                    $menu[strtolower($itemtype)] = [
-                        'title' => $type['itemtype']::getMenuName(),
-                        'page'  => $itemtype::getSearchUrl(false),
-                        'links' => $links,
-                        'lists_itemtype' => $itemtype,
-                    ];
-                }
+                 if (
+                         $type['plugin_genericobject_typefamilies_id'] > 0
+                         && (!isset($_GET['itemtype'])
+                         || !preg_match("/itemtype=".$_GET['itemtype']."/", $_GET['itemtype']))
+                    ) {
+                         $family_id = $type['plugin_genericobject_typefamilies_id'];
+                         $name      = Dropdown::getDropdownName("glpi_plugin_genericobject_typefamilies", $family_id, 0, false);
+                         $str_name  = strtolower($name);
+                         $menu[$str_name]['title'] = Dropdown::getDropdownName("glpi_plugin_genericobject_typefamilies", $family_id);
+                         $menu[$str_name]['icon'] = ($type['comment'] == '') ? $type['itemType']::getIcon() : $type['comment'];
+                         $menu[$str_name]['page']  = '/'.Plugin::getWebDir('genericobject', false).'/front/familylist.php?id='.$family_id;
+                         $menu[$str_name]['options'][strtolower($itemtype)] = [
+                              'title' => $type['itemtype']::getMenuName(),
+                              'icon'  => ($type['comment'] == '') ? $type['itemType']::getIcon() : $type['comment'],
+                              'page'  => $itemtype::getSearchUrl(false),
+                              'links' => $links
+                         ];
+                    } else {
+                       $menu[strtolower($itemtype)]= [
+                          'title' => $type['itemtype']::getMenuName(),
+                          'page'  => $itemtype::getSearchUrl(false),
+                          'links' => $links
+                       ];
+                    }
             }
         }
 
